@@ -81,7 +81,7 @@ gulp.task('sass:prod', function () {
   return gulp.src('./src/sass/[^_]*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(minCss())
-    .pipe(concat('styles.css'))
+    // .pipe(concat('styles.css'))
     .pipe(gulp.dest('./public/css'));
 });
 
