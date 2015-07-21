@@ -72,13 +72,13 @@ gulp.task('jade:prod', function() {
 
 // compile sass
 gulp.task('sass', function () {
-  return gulp.src('./src/sass/[^_]*.sass')
+  return gulp.src('./src/sass/[^_]*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./test/css'));
 });
 
 gulp.task('sass:prod', function () {
-  return gulp.src('./src/sass/[^_]*.sass')
+  return gulp.src('./src/sass/[^_]*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(minCss())
     // .pipe(concat('styles.css'))
