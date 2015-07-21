@@ -34,7 +34,7 @@ gulp.task('watch', function() {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling jade...');
   });
 
-  var sassw = gulp.watch('./src/sass/*.sass', ['sass']);
+  var sassw = gulp.watch('./src/sass/*.scss', ['sass']);
   sassw.on('change', function(event) {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling sass...');
   });
