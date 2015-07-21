@@ -1,7 +1,7 @@
 {
-  "name": "site-builder",
-  "version": "0.2.0",
-  "description": "A website builder with templating using gulp",
+  "name": "lavib-site",
+  "version": "0.1.0",
+  "description": "Website to be put on lavib.com",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -21,12 +21,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lavifb/site-builder.git"
+    "url": "git+https://github.com/lavifb/lavib-site.git"
   },
   "author": "Lavi Blumberg",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lavifb/site-builder/issues"
+    "url": "https://github.com/lavifb/lavib-site/issues"
   },
-  "homepage": "https://github.com/lavifb/site-builder#readme"
+  "homepage": "https://github.com/lavifb/lavib-site#readme"
 }
