@@ -33,6 +33,11 @@ gulp.task('watch', function() {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling sass...');
   });
 
+  var coffeew = gulp.watch('./src/coffee/*.coffee', ['coffee']);
+  coffeew.on('change', function(event) {
+    gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling coffee...');
+  });
+
   gutil.log('Gulp is watching!');
   return ;
 });
@@ -63,8 +68,8 @@ gulp.task('sass', function () {
 // compile coffee
 gulp.task('coffee', function () {
   return gulp.src('./src/coffee/[^_]*.coffee')
-    .pipe(coffee())
     .pipe(coffeelint())
     .pipe(coffeelint.reporter())
+    .pipe(coffee())
     .pipe(gulp.dest('./test/js'));
 });
