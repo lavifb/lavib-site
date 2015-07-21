@@ -5,9 +5,12 @@ var gulp  = require('gulp'),
     gutil = require('gulp-util'),
     coffee = require('gulp-coffee'),
     coffeelint = require('gulp-coffeelint'),
+    uglify = require('gulp-uglify')
     jade = require('gulp-jade'),
-    sass = require('gulp-sass'),
     prettify = require('gulp-html-prettify'),
+    sass = require('gulp-sass'),
+    minCss = require('gulp-minify-css'),
+    concat = require('gulp-concat'),
     server = require('gulp-server-livereload');
 
 /* Add tasks */
@@ -20,6 +23,9 @@ gulp.task('test', ['build', 'server', 'watch']);
 
 // build to ./test/
 gulp.task('build', ['jade', 'sass', 'coffee']);
+
+// build production level assets to ./public/
+gulp.task('prod', ['jade:prod', 'sass:prod', 'coffee:prod']);
 
 // watch for changes and compile them
 gulp.task('watch', function() {
@@ -58,11 +64,25 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./test/'));
 });
 
+gulp.task('jade:prod', function() {
+  return gulp.src('./src/jade/[^_]*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('./public/'));
+});
+
 // compile sass
 gulp.task('sass', function () {
   return gulp.src('./src/sass/[^_]*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./test/css'));
+});
+
+gulp.task('sass:prod', function () {
+  return gulp.src('./src/sass/[^_]*.sass')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(minCss())
+    .pipe(concat('styles.css'))
+    .pipe(gulp.dest('./public/css'));
 });
 
 // compile coffee
@@ -72,4 +92,11 @@ gulp.task('coffee', function () {
     .pipe(coffeelint.reporter())
     .pipe(coffee())
     .pipe(gulp.dest('./test/js'));
+});
+
+gulp.task('coffee:prod', function () {
+  return gulp.src('./src/coffee/[^_]*.coffee')
+    .pipe(coffee())
+    .pipe(uglify())
+    .pipe(gulp.dest('./public/js'));
 });
