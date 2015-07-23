@@ -9,7 +9,9 @@ var gulp  = require('gulp'),
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     minCss = require('gulp-minify-css'),
+    md = require('gulp-markdown-to-json'),
     concat = require('gulp-concat'),
+    rimraf = require('gulp-rimraf'),
     server = require('gulp-server-livereload');
 
 /* Add tasks */
@@ -71,13 +73,13 @@ gulp.task('jade:prod', function() {
 });
 
 // compile sass
-gulp.task('sass', function () {
+gulp.task('sass', function() {
   return gulp.src('./src/sass/[^_]*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./test/css'));
 });
 
-gulp.task('sass:prod', function () {
+gulp.task('sass:prod', function() {
   return gulp.src('./src/sass/[^_]*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(minCss())
@@ -86,7 +88,7 @@ gulp.task('sass:prod', function () {
 });
 
 // compile coffee
-gulp.task('coffee', function () {
+gulp.task('coffee', function() {
   return gulp.src('./src/coffee/[^_]*.coffee')
     .pipe(coffeelint())
     .pipe(coffeelint.reporter())
@@ -94,9 +96,15 @@ gulp.task('coffee', function () {
     .pipe(gulp.dest('./test/js'));
 });
 
-gulp.task('coffee:prod', function () {
+gulp.task('coffee:prod', function() {
   return gulp.src('./src/coffee/[^_]*.coffee')
     .pipe(coffee())
     .pipe(uglify())
     .pipe(gulp.dest('./public/js'));
+});
+
+// clean output
+gulp.task('clean', function() {
+  return gulp.src('./test/', {read: false})
+    .pipe(rimraf())
 });
