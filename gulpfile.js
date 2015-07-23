@@ -10,7 +10,8 @@ var gulp  = require('gulp'),
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     minCss = require('gulp-minify-css'),
-    md = require('gulp-markdown-to-json'),
+    markdown = require('gulp-markdown-to-json'),
+    jadeTemplate = require('gulp-jade-template'),
     concat = require('gulp-concat'),
     server = require('gulp-server-livereload');
 
@@ -70,6 +71,14 @@ gulp.task('jade:prod', function() {
   return gulp.src('./src/jade/[^_]*.jade')
     .pipe(jade())
     .pipe(gulp.dest('./public/'));
+});
+
+//compile posts
+gulp.task('post', function() {
+  return gulp.src('./src/posts/*.md')
+    .pipe(markdown())
+    .pipe(gulp.dest('./test/'));
+    // .pipe(jadeTemplate('./src/jade/_post.jade'))
 });
 
 // compile sass
