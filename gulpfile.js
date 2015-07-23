@@ -7,7 +7,6 @@ var gulp  = require('gulp'),
     coffeelint = require('gulp-coffeelint'),
     uglify = require('gulp-uglify')
     jade = require('gulp-jade'),
-    prettify = require('gulp-html-prettify'),
     sass = require('gulp-sass'),
     minCss = require('gulp-minify-css'),
     concat = require('gulp-concat'),
@@ -59,8 +58,9 @@ gulp.task('server', function() {
 // compile jade
 gulp.task('jade', function() {
   return gulp.src('./src/jade/[^_]*.jade')
-    .pipe(jade())
-    .pipe(prettify())
+    .pipe(jade({
+            pretty: true
+          }))
     .pipe(gulp.dest('./test/'));
 });
 
