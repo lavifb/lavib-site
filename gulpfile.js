@@ -4,6 +4,7 @@
 var gulp  = require('gulp'),
     gutil = require('gulp-util'),
     del = require('del'),
+    ext = require('gulp-ext');
     coffee = require('gulp-coffee'),
     coffeelint = require('gulp-coffeelint'),
     uglify = require('gulp-uglify')
@@ -77,8 +78,9 @@ gulp.task('jade:prod', function() {
 gulp.task('post', function() {
   return gulp.src('./src/posts/*.md')
     .pipe(markdown())
+    .pipe(jadeTemplate('./src/jade/_post.jade'))
+    .pipe(ext.replace('html'))
     .pipe(gulp.dest('./test/'));
-    // .pipe(jadeTemplate('./src/jade/_post.jade'))
 });
 
 // compile sass

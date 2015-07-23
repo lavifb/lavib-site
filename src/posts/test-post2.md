@@ -1,6 +1,6 @@
 ---
 title: This is a second test post
-sorttitle: Test Post 2
+short: Test Post 2
 tags:
   - test
   - tag2
