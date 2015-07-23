@@ -3,6 +3,7 @@
 // add gulp packages
 var gulp  = require('gulp'),
     gutil = require('gulp-util'),
+    del = require('del'),
     coffee = require('gulp-coffee'),
     coffeelint = require('gulp-coffeelint'),
     uglify = require('gulp-uglify')
@@ -11,7 +12,6 @@ var gulp  = require('gulp'),
     minCss = require('gulp-minify-css'),
     md = require('gulp-markdown-to-json'),
     concat = require('gulp-concat'),
-    rimraf = require('gulp-rimraf'),
     server = require('gulp-server-livereload');
 
 /* Add tasks */
@@ -104,7 +104,10 @@ gulp.task('coffee:prod', function() {
 });
 
 // clean output
-gulp.task('clean', function() {
-  return gulp.src('./test/', {read: false})
-    .pipe(rimraf())
+gulp.task('clean', function(cb) {
+  del(['./test/'], cb)
+});
+
+gulp.task('clean:prod', function(cb) {
+  del(['./public/'], cb)
 });
