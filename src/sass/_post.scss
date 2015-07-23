@@ -1,0 +1,49 @@
+//Vars
+
+$tag-color: #999999;
+
+// Post Data
+div.post-data-col {
+  text-align: center;
+}
+
+div.post-data {
+  display: inline-block;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+
+  .post-title {
+    margin-bottom: 0;
+    height: 32px;
+  }
+
+  .post-date {
+    font-size: 14px;
+    font-style: italic;
+    // margin-bottom: 10px;
+  }
+}
+
+#tag-list {
+  margin-top: 5px;
+  list-style: none;
+
+  .tag {
+    float: left;
+    margin-right: 5px;
+    padding: 2px;
+    // border: 1px solid;
+    border-radius: 5px;
+    background-color: $tag-color;
+    font-size: 14px;
+  }
+}
+
+// Post Content
+div.post-content {
+  padding-top: 50px;
+  padding-left: 3%;
+  padding-right: 3%;
+}

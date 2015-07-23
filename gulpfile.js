@@ -25,7 +25,7 @@ gulp.task('default', ['server', 'watch']);
 gulp.task('test', ['build', 'server', 'watch']);
 
 // build to ./test/
-gulp.task('build', ['jade', 'sass', 'coffee']);
+gulp.task('build', ['jade', 'sass', 'coffee', 'post']);
 
 // build production level assets to ./public/
 gulp.task('prod', ['jade:prod', 'sass:prod', 'coffee:prod']);
@@ -45,6 +45,11 @@ gulp.task('watch', function() {
   var coffeew = gulp.watch('./src/coffee/*.coffee', ['coffee']);
   coffeew.on('change', function(event) {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling coffee...');
+  });
+
+  var postw = gulp.watch(['./src/posts/*.md', './src/jade/_post.jade'], ['post']);
+  postw.on('change', function(event) {
+    gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling new posts...');
   });
 
   gutil.log('Gulp is watching!');
