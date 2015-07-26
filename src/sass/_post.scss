@@ -2,14 +2,22 @@
 
 $tag-color: #bbbbbb;
 
-// Post Data
-div.post-data-col {
+div.menu-col {
+  text-align: center;
+  padding-top: 150px;
+}
+
+div.post-col {
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 50px;
+  box-sizing: padding-box;
   text-align: center;
 }
 
+// Post Data
 div.post-data {
   display: inline-block;
-  margin-top: 150px;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
@@ -26,6 +34,7 @@ div.post-data {
   }
 }
 
+// Tags
 #tag-list {
   margin-top: 5px;
   list-style: none;
@@ -44,6 +53,5 @@ div.post-data {
 // Post Content
 div.post-content {
   padding-top: 50px;
-  padding-left: 3%;
-  padding-right: 3%;
+  text-align: left;
 }
