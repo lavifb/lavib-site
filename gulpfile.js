@@ -10,7 +10,7 @@ var gulp  = require('gulp'),
     uglify = require('gulp-uglify')
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
-    minCss = require('gulp-minify-css'),
+    sourcemaps = require('gulp-sourcemaps'),
     markdown = require('gulp-markdown-to-json'),
     jadeTemplate = require('gulp-jade-template'),
     concat = require('gulp-concat'),
@@ -25,7 +25,7 @@ gulp.task('default', ['server', 'watch']);
 gulp.task('test', ['build', 'server', 'watch']);
 
 // build to ./test/
-gulp.task('build', ['jade', 'sass', 'coffee', 'post']);
+gulp.task('build', ['jade', 'sass', 'coffee', 'post', 'img']);
 
 // build production level assets to ./public/
 gulp.task('prod', ['jade:prod', 'sass:prod', 'coffee:prod']);
@@ -50,6 +50,11 @@ gulp.task('watch', function() {
   var postw = gulp.watch(['./src/posts/*.md', './src/jade/_post.jade'], ['post']);
   postw.on('change', function(event) {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling new posts...');
+  });
+
+  var imgw = gulp.watch(['./src/imgs/*'], ['img']);
+  imgw.on('change', function(event) {
+    gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', copying over imgs...');
   });
 
   gutil.log('Gulp is watching!');
@@ -91,14 +96,15 @@ gulp.task('post', function() {
 // compile sass
 gulp.task('sass', function() {
   return gulp.src('./src/sass/[^_]*.scss')
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./test/css'));
 });
 
 gulp.task('sass:prod', function() {
   return gulp.src('./src/sass/[^_]*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(minCss())
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     // .pipe(concat('styles.css'))
     .pipe(gulp.dest('./public/css'));
 });
@@ -127,3 +133,9 @@ gulp.task('clean', function(cb) {
 gulp.task('clean:prod', function(cb) {
   del(['./public/'], cb)
 });
+
+// copy imgs
+gulp.task('img', function() {
+  return gulp.src('./src/img/*')
+    .pipe(gulp.dest('./test/img/'))
+})
